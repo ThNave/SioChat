@@ -1,3 +1,4 @@
+//configuration des modules
 const express = require('express');
 const app =  express();
 const http = require('http');
@@ -7,10 +8,12 @@ const io = new Server (server);
 var path = require("path");
 let PORT = 8080;
 
+//Port d'écoute
 server.listen(PORT, () => {
     console.log('Serveur démarré sur le port:'+PORT);
 });
 
+//diréctions route des différentes pages
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
@@ -22,13 +25,15 @@ app.get('/css/style.css', (req, res) => {
 });
 
 
-
+//gestions connexion des clients
 io.on('connection',(socket)=>{
 
     socket.on('set-pseudo',(pseudo)=>{
         console.log(pseudo + "vient de se connecter à "+new Date ());
         socket.nickname = pseudo;
     });
+
+
         // Récupération de la liste des utilisateurs (Sockets) connectés
         io.fetchSockets().then((room)=>{
             var utilisateurs=[];
@@ -38,29 +43,11 @@ io.on('connection',(socket)=>{
                     pseudo_client : item.nickname,
                 });
             });
-            io.emit('reception_utilisateur',utilisateurs);
-            console.table(utilisateurs);
+            io.emit('reception_utilisateurs',utilisateurs);//RETIRER LE S DE RECEPTIONUTILISATEURS EN CA DE PROBLèME
+            console.table(utilisateurs)
         });
 
-        //afficher pseudo (chat gpt)
-        const users = {}; // Object to store connected users
 
-        io.on('connection', (socket) => {
-          // Add the connected user to the users object
-          socket.on('set-pseudo', (pseudo) => {
-            socket.pseudo = pseudo;
-            users[socket.id] = pseudo;
-            io.emit('listpseudo', Object.values(users)); // Emit the list of connected users to all clients
-          });
-        
-          // Remove the disconnected user from the users object
-          socket.on('disconnect', () => {
-            delete users[socket.id];
-            io.emit('listpseudo', Object.values(users)); // Emit the updated list of connected users to all clients
-          });
-        }); 
-
-        
 
         // code pour envoyer des messages 
     socket.on('message',(message)=>{
