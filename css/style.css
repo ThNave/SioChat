@@ -54,3 +54,77 @@ body{
 #messages > li:nth-child(odd) {
     background: #efefef;
 }
+
+/* gpt */
+
+/* Style général de la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  /* Style du conteneur des messages */
+  #messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Style des messages */
+  #messages li {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  
+  /* Style du formulaire d'envoi de messages */
+  #form {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  /* Style du champ de saisie de messages */
+  #input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  /* Style du bouton d'envoi de messages */
+  #btn-send {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  /* Style du conteneur des utilisateurs */
+  #utilisateurs {
+    margin-top: 10px;
+  }
+  
+  /* Style des pseudos des utilisateurs */
+  #utilisateurs div {
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  /* Style des liens vers les profils des utilisateurs */
+  #utilisateurs div a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  /* Style du message indiquant que l'utilisateur est seul */
+  #utilisateurs p {
+    font-style: italic;
+    color: #999;
+  }
+  

@@ -6,6 +6,9 @@ var id_salon ='salon';
 var lesMessage = [];
 var user = null;
 
+//variable qui va contenir les infos de l'utilisateurs
+let infosUtilisateur;
+
 //demander pseudo
 socket.emit('set-pseudo', prompt("Pseudo ?"));
 
@@ -31,6 +34,15 @@ socket.on('listmessage', (message) =>{
   messages.appendChild(list);
 });
 
+//affichage des messages en fonction du choix de l'utilisateur :
+// - Soit les messages du salon général
+// - Soit les messages d'une conversation privé avec un autre utilisateur
+function salon(id){
+  console.log(id_client);
+
+  /*A completer */
+}
+
 
 
 
@@ -41,21 +53,17 @@ socket.on('reception_utilisateurs', (utilisateurs) => {
   usersContainer.innerHTML = '';
   
   // Parcours de la liste des utilisateurs
-  utilisateurs.forEach((utilisateur) => {
-    // Récupération de l'ID de l'utilisateur
-    user = utilisateur.id_client;
-    
-    // Si l'utilisateur n'est pas le client courant, on l'ajoute à la liste des utilisateurs affichée
-    if (user !== socket.id) { //pour ne pas afficher son propre pseudo
-      const userElem = document.createElement('div');
-      userElem.innerHTML = '<p>' + utilisateur.pseudo_client + '</p>';
-      usersContainer.appendChild(userElem);
-    } 
-    // Si l'utilisateur est seul, on affiche un message spécifique
-    else if (utilisateurs.length == 1) {
-      const userElem = document.createElement('div')
-      userElem.innerHTML = '<p> Vous êtes seul(e) </p>';
-      usersContainer.appendChild(userElem);
-    }
-  });
+utilisateurs.forEach((utilisateur) => {
+  // Récupération de l'ID de l'utilisateur
+  user = utilisateur.id_client;
+
+  // Si l'utilisateur n'est pas le client courant, on l'ajoute à la liste des utilisateurs affichée
+  if (user !== socket.id) { //pour ne pas afficher son propre pseudo
+    const userElem = document.createElement('div');
+    const userProfileURL = 'http://siochat/profile/' + utilisateur.pseudo_client; // URL de la page de profil de l'utilisateur
+    userElem.innerHTML = '<a href="' + userProfileURL + '">' + utilisateur.pseudo_client + '</a>'; // ajout de la balise <a>
+    usersContainer.appendChild(userElem);
+  } 
+
+});
 });

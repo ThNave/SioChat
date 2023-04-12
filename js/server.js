@@ -8,6 +8,7 @@ const io = new Server (server);
 var path = require("path");
 let PORT = 8080;
 
+
 //Port d'écoute
 server.listen(PORT, () => {
     console.log('Serveur démarré sur le port:'+PORT);
@@ -25,11 +26,16 @@ app.get('/css/style.css', (req, res) => {
 });
 
 
+
+
+
+
 //gestions connexion des clients
 io.on('connection',(socket)=>{
 
     socket.on('set-pseudo',(pseudo)=>{
         console.log(pseudo + "vient de se connecter à "+new Date ());
+        socket.broadcast.emit('listmessage',"un "+pseudo+" sauvage apparait !");//Message lorsqu'un utilisateurs se connecte
         socket.nickname = pseudo;
     });
 
@@ -43,7 +49,15 @@ io.on('connection',(socket)=>{
                     pseudo_client : item.nickname,
                 });
             });
-            io.emit('reception_utilisateurs',utilisateurs);//RETIRER LE S DE RECEPTIONUTILISATEURS EN CA DE PROBLèME
+
+        // Ajouter l'utilisateur "salon" à la liste des utilisateurs
+        utilisateurs.push({
+            id_client : "salon",
+            pseudo_client : "salon",
+        });
+
+
+            io.emit('reception_utilisateurs',utilisateurs);
             console.table(utilisateurs)
         });
 
@@ -61,5 +75,6 @@ io.on('connection',(socket)=>{
         //deconnexion
     socket.on('disconnect',()=>{ //se deconnecter
     console.log(socket.nickname+" vient de se déconnecter");//afficher la deconexion dans la console
+    socket.broadcast.emit('listmessage',"le "+socket.nickname+" sauvage prend la fuite !");//Message lorsqu'un utilisateurs se deconnecte
     });
 });
