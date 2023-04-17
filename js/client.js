@@ -60,8 +60,7 @@ utilisateurs.forEach((utilisateur) => {
   // Si l'utilisateur n'est pas le client courant, on l'ajoute à la liste des utilisateurs affichée
   if (user !== socket.id) { //pour ne pas afficher son propre pseudo
     const userElem = document.createElement('div');
-    const userProfileURL = 'http://siochat/profile/' + utilisateur.pseudo_client; // URL de la page de profil de l'utilisateur
-    userElem.innerHTML = '<a href="' + userProfileURL + '">' + utilisateur.pseudo_client + '</a>'; // ajout de la balise <a>
+    userElem.innerHTML = '<a>' + utilisateur.pseudo_client + '</a>'; // ajout de la balise <a>
     usersContainer.appendChild(userElem);
   } 
 

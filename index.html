@@ -9,19 +9,28 @@
 </head>
 
 <body>
+    <!--titre et la liste des utilisateurs connecté-->
     <h1>Le Salon</h1>
     <h3>Utilisateurs connecté: </h3>
     <div class="utilisateurs_list">
     </ul><ul id="utilisateurs"> 
     </ul></div>
 
+    <!--les messages apparaissent ici-->
     <ul id="messages"></ul>
 
+
+    <!--Barre ou on ecrit les message et bouton d'envois-->
     <form id="form" action="">
         <input id="input" autocomplete="off" />
         <button id="button">Send</button>
     </form>
+
+    <!--Liens des scripts-->
     <script src="socket.io/socket.io.js"></script>
     <script src="/js/client.js"></script>
 </body>
+
+
+
 </html>
